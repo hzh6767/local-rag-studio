@@ -55,9 +55,13 @@ function splitText(text, chunkSize, overlap) {
     }
     parts.push(clean.slice(from, end).trim());
     if (end >= clean.length) break;
-    const step = Math.max(1, end - overlap);
-    if (step <= 0 || start + step <= start) break;
-    start += step;
+    // Advance the next chunk to `overlap` characters before this chunk's end.
+    // The old code did `start += Math.max(1, end - overlap)`, adding the
+    // absolute end offset to start; because start already equals the previous
+    // chunk's start, every step past the first overshot by that offset and
+    // silently dropped whole spans of input. Anchor the advance to `end` and
+    // floor it at one character so the loop always makes progress.
+    start = Math.max(start + 1, end - overlap);
   }
   return parts.filter(Boolean);
 }

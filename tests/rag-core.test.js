@@ -66,12 +66,29 @@ console.log('Running rag-core tests...');
   console.log('✓ splitText basic');
 }
 
-// Test splitText infinite loop guard
+// Test splitText terminates when overlap >= size
 {
   const text = 'A'.repeat(1000);
   const chunks = splitText(text, 50, 60);
-  assert(chunks.length > 0 && chunks.length < 500, 'splitText: should terminate with overlap > size');
-  console.log('✓ splitText infinite loop guard');
+  // Overlap larger than the chunk size forces a one-character advance per step,
+  // so the loop must still terminate and must not lose the tail of the input.
+  assert(chunks.length > 0, 'splitText: should produce chunks when overlap > size');
+  assert(chunks.join('').includes(text.slice(-50)), 'splitText: should reach the end when overlap > size');
+  console.log('✓ splitText overlap > size termination');
+}
+
+// Test splitText does not skip input spans (regression)
+{
+  // Regression: the advance used to add the absolute `end` offset to `start`,
+  // jumping past (end - overlap) characters on every step after the first, so
+  // middle and tail spans vanished from the index entirely.
+  assertEq(JSON.stringify(splitText('abcdefghij', 3, 0)), JSON.stringify(['abc', 'def', 'ghi', 'j']), 'splitText: overlap 0 should tile the input');
+  assertEq(JSON.stringify(splitText('abcdef', 1, 0)), JSON.stringify(['a', 'b', 'c', 'd', 'e', 'f']), 'splitText: size 1 should keep every character');
+  assertEq(JSON.stringify(splitText('abcdefghijkl', 4, 0)), JSON.stringify(['abcd', 'efgh', 'ijkl']), 'splitText: should not drop the final span');
+  const text = ('Sentence one. Sentence two! 中文句子。').repeat(20);
+  const joined = splitText(text, 40, 0).join('');
+  assertEq(joined, text, 'splitText: overlap 0 chunks should reconstruct the input exactly');
+  console.log('✓ splitText span coverage');
 }
 
 // Test splitText boundary detection

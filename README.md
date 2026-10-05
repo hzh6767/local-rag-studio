@@ -50,8 +50,19 @@ Documents and settings remain in the browser. Network access is not used by the 
 ## Project structure
 
 - `index.html` — complete application, styling, local index, evaluation tools, and persistence
+- `rag-core.js` — pure retrieval core (tokenizing, hashing, vectors, chunk splitting, scoring), shared by the app and the tests
+- `tests/rag-core.test.js` — dependency-free tests for the retrieval core
+- `.github/workflows/ci.yml` — CI that runs `npm test` on Node.js 18
 - `README.md` — architecture and usage guide
 - `LICENSE` — MIT license
+
+## Tests
+
+The retrieval core has no dependencies; run its tests with Node.js 18 or newer:
+
+```bash
+npm test
+```
 
 ## Security notes
 
