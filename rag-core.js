@@ -8,7 +8,7 @@ function terms(text) {
 function hash(text) {
   let h = 2166136261;
   for (const c of text) {
-    h ^= c.charCodeAt(0);
+    h ^= c.codePointAt(0);
     h = Math.imul(h, 16777619);
   }
   return h >>> 0;
