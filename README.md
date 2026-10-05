@@ -13,7 +13,7 @@ Many RAG demos hide the important parts behind a hosted API. Local RAG Studio ma
 - Hybrid retrieval using lexical-overlap scoring plus deterministic hashed semantic vectors
 - Source citations with document name, chunk number, and relevance score
 - Local extractive answer synthesis without an API key
-- Optional provider adapter settings for OpenAI-compatible endpoints
+- Provider adapter settings placeholder (not functional in this static build)
 - Retrieval playground with top-k and lexical/semantic weighting controls
 - Built-in evaluation set with hit-rate and mean reciprocal rank
 - Indexed-document explorer with document deletion
@@ -59,4 +59,4 @@ Imported content is rendered through text nodes rather than HTML. API secrets ar
 
 ## License
 
-MIT © 2026 hzh6767.
+MIT © 2026 无聊玩玩 (hzh6767).

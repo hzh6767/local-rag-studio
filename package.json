@@ -1,0 +1,16 @@
+{
+  "name": "local-rag-studio",
+  "version": "1.0.0",
+  "description": "A local-first RAG workspace with ingestion, hybrid retrieval, citations, and evaluation",
+  "main": "rag-core.js",
+  "scripts": {
+    "test": "node tests/rag-core.test.js"
+  },
+  "keywords": ["rag", "retrieval", "local-first", "offline", "browser"],
+  "author": "无聊玩玩 (hzh6767)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hzh6767/local-rag-studio"
+  }
+}
