@@ -47,6 +47,8 @@ The local vectorizer is intentionally deterministic and dependency-free. It is u
 
 Documents and settings remain in the browser. Network access is not used by the default local engine. Clearing site storage removes the saved workspace.
 
+If the browser cannot save a change, the workspace stays available in the current tab. Use **Export JSON** before closing or reloading it. A later successful save clears the storage warning.
+
 ## Project structure
 
 - `index.html` — complete application, styling, local index, evaluation tools, and persistence
